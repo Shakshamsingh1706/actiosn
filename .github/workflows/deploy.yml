@@ -1,4 +1,4 @@
-name: Deploy to S3
+name: Deploy to S3 & CloudFront
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -20,12 +21,9 @@ jobs:
           aws-region: ap-south-1
 
       - name: Sync files to S3
-        run: |
-          echo "Syncing website files to S3..."
-          aws s3 sync ./ s3://devops-portfolio-likeshbarve --acl public-read --delete
-          
-      - name: Invalidate CloudFront
+        run: aws s3 sync ./ s3://devops-portfolio-likeshbarve --acl public-read --delete
+
+      - name: Invalidate CloudFront Cache
         run: |
           DISTRIBUTION_ID=E1AENBSNPXIBXG
-          echo "Creating CloudFront invalidation..."
           aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
