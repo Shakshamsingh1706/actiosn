@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Likesh Barve | AWS & DevOps Enthusiast</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/loaders/GLTFLoader.js"></script>
+
+</head>
+
+<body>
+    <div class="stat-card">
+        <div class="stat-number" data-count="6">0</div>
+        <p>Certifications</p>
+    </div>
+    <!-- Particle Background -->
+    <div id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-text">Likesh Barve<span class="accent">_</span></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link glitch" data-text="HOME">HOME</a></li>
+                <li><a href="#about" class="nav-link glitch" data-text="ABOUT">ABOUT</a></li>
+                <li><a href="#skills" class="nav-link glitch" data-text="SKILLS">SKILLS</a></li>
+                <li><a href="#projects" class="nav-link glitch" data-text="PROJECTS">PROJECTS</a></li>
+                <li><a href="#contact" class="nav-link glitch" data-text="CONTACT">CONTACT</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+
+        <div class="matrix-bg"></div>
+        <div class="hero-content">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="terminal-title">aws-devops@terminal ~ </div>
+                </div>
+                <div class="terminal-body">
+                    <div class="typed-text">
+                        <span class="prompt">$</span> <span id="typed"></span><span class="cursor">_</span>
+                    </div>
+                    <div class="ascii-art">
+                        <pre>
+    ___        ______    ____             ___           
+   / \ \      / / ___|  |  _ \  _____   __/ _ \ _ __  ___ 
+  / _ \ \ /\ / /\___ \  | | | |/ _ \ \ / / | | | '_ \/ __|
+ / ___ \ V  V /  ___) | | |_| |  __/\ V /| |_| | |_) \__ \
+/_/   \_\_/\_/  |____/  |____/ \___| \_/  \___/| .__/|___/
+                                                |_|        
+</pre>
+                    </div>
+                </div>
+            </div>
+            <h1 class="glitch hero-title" data-text="AWS & DEVOPS ENTHUSIAST">AWS & DEVOPS ENTHUSIAST</h1>
+
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="// ABOUT ME">// ABOUT ME</h2>
+            <div class="about-content">
+                <h3 class="glitch-name" data-text="Likesh Barve">Likesh Barve</h3>
+                <p class="intro-text">
+                    I’m <span class="glitch-keyword">AWS-certified</span> fresher with a passion for
+                    <span class="glitch-keyword">cloud infrastructure</span> and <span class="glitch-keyword">DevOps automation</span>. I build <span class="glitch-keyword">CI/CD pipelines</span>, deploy scalable applications, and optimize cloud environments
+                    while constantly learning the latest in cloud technologies. Think of me as your future-proof <span class="glitch-keyword">DevOps buddy</span> — ready to solve problems, automate workflows, and make cloud operations seamless.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="// EXPERIENCE">// EXPERIENCE</h2>
+
+            <div class="experience-timeline">
+
+                <!-- Timeline line -->
+                <div class="timeline-line"></div>
+
+                <!-- Experience Item -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">💻</div>
+                    <div class="timeline-content">
+                        <h3>Associate Systems Engineer | Braves Technologies</h3>
+                        <p class="timeline-date"><strong>March 2025 – May 2025</strong></p>
+                        <ul>
+                            <li>Analyzed large system & application logs for errors & patterns.</li>
+                            <li>Used internal tools for monitoring & data extraction.</li>
+                            <li>Automated data extraction with Python scripts.</li>
+                            <li>Collaborated with cross-functional teams for root cause analysis.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">☁️</div>
+                    <div class="timeline-content">
+                        <h3>AWS Cloud Intern | F13 Technologies</h3>
+                        <p class="timeline-date"><strong>Feb 2025 – May 2025</strong></p>
+                        <ul>
+                            <li>Completed 6 AWS certifications & worked on cloud deployments.</li>
+                            <li>Handled IAM roles, EC2 provisioning, CloudWatch integration.</li>
+                            <li>Involved in application migration & proactive system monitoring.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="// TECH STACK">// TECH STACK</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3 class="category-title">[ Programming & Tools ]</h3>
+                    <div class="skills-grid">
+                        <div class="skill-card" data-skill="Python">
+                            <div class="skill-icon">🐍</div>
+                            <span>Python</span>
+                        </div>
+                        <div class="skill-card" data-skill="Git">
+                            <div class="skill-icon">📦</div>
+                            <span>Git</span>
+                        </div>
+                        <div class="skill-card" data-skill="GitHub">
+                            <div class="skill-icon">💻</div>
+                            <span>GitHub</span>
+                        </div>
+                        <div class="skill-card" data-skill="CI/CD">
+                            <div class="skill-icon">⚙️</div>
+                            <span>CI/CD</span>
+                        </div>
+                        <div class="skill-card" data-skill="Linux">
+                            <div class="skill-icon">🐧</div>
+                            <span>Linux</span>
+                        </div>
+                        <div class="skill-card" data-skill="Shell Scripting">
+                            <div class="skill-icon">💾</div>
+                            <span>Shell Scripting</span>
+                        </div>
+                        <div class="skill-card" data-skill="Docker">
+                            <div class="skill-icon">🐳</div>
+                            <span>Docker</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="category-title">[ AWS Services ]</h3>
+                    <div class="skills-grid">
+                        <div class="skill-card" data-skill="EC2">
+                            <div class="skill-icon">⚡</div>
+                            <span>EC2</span>
+                        </div>
+                        <div class="skill-card" data-skill="S3">
+                            <div class="skill-icon">🪣</div>
+                            <span>S3</span>
+                        </div>
+                        <div class="skill-card" data-skill="IAM">
+                            <div class="skill-icon">🔑</div>
+                            <span>IAM</span>
+                        </div>
+                        <div class="skill-card" data-skill="VPC">
+                            <div class="skill-icon">🌐</div>
+                            <span>VPC</span>
+                        </div>
+                        <div class="skill-card" data-skill="RDS">
+                            <div class="skill-icon">🗄️</div>
+                            <span>RDS</span>
+                        </div>
+                        <div class="skill-card" data-skill="Lambda">
+                            <div class="skill-icon">λ</div>
+                            <span>Lambda</span>
+                        </div>
+                        <div class="skill-card" data-skill="Route 53">
+                            <div class="skill-icon">📍</div>
+                            <span>Route 53</span>
+                        </div>
+                        <div class="skill-card" data-skill="Auto Scaling">
+                            <div class="skill-icon">📈</div>
+                            <span>Auto Scaling</span>
+                        </div>
+                        <div class="skill-card" data-skill="Load Balancer">
+                            <div class="skill-icon">🔄</div>
+                            <span>Load Balancer</span>
+                        </div>
+                        <div class="skill-card" data-skill="CloudWatch">
+                            <div class="skill-icon">👁️</div>
+                            <span>CloudWatch</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects futuristic-projects">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="// PROJECTS">// PROJECTS</h2>
+            <div class="projects-grid">
+                <!-- Project Card Template -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>DevTest</h3>
+                        <p>A Python-based project to test various algorithms and Python skills.</p>
+                        <a href="https://github.com/danielikesh/DevTest" target="_blank" class="btn btn-secondary">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>Face Recognition Attendance System</h3>
+                        <p>Python project using facial recognition to automate attendance tracking.</p>
+                        <a href="https://github.com/danielikesh/Face-Recognition-Attendance-System" target="_blank" class="btn btn-secondary">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>Personal Expense Tracker</h3>
+                        <p>Python app to manage and visualize personal expenses efficiently.</p>
+                        <a href="https://github.com/danielikesh/Personal-expense-Tracker" target="_blank" class="btn btn-secondary">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>DevOps Web Hosting</h3>
+                        <p>HTML/DevOps project to host web applications with CI/CD pipelines.</p>
+                        <a href="https://github.com/danielikesh/danielikesh-My_first_devops_Web_hosting" target="_blank" class="btn btn-secondary">View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        /* Futuristic Project Cards */
+        
+        .futuristic-projects .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .futuristic-projects .project-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #00ffff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .futuristic-projects .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00, #ffcc00);
+            background-size: 400% 400%;
+            opacity: 0.2;
+            transform: rotate(25deg);
+            animation: gradientMove 6s linear infinite;
+        }
+        
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .futuristic-projects .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 30px #00ffff, 0 0 60px #ff00ff;
+        }
+        
+        .futuristic-projects .project-content {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+        }
+        
+        .futuristic-projects .project-content h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .futuristic-projects .project-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .futuristic-projects .project-content .btn-secondary {
+            color: #00ffff;
+            border: 1px solid #00ffff;
+            transition: all 0.3s ease;
+        }
+        
+        .futuristic-projects .project-content .btn-secondary:hover {
+            background: #00ffff;
+            color: #000;
+        }
+    </style>
+
+    <!-- certs -->
+
+    <section id="certifications" class="certifications">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="// CERTIFICATIONS">// CERTIFICATIONS</h2>
+
+            <div class="cert-badges-grid">
+                <div class="cert-badge" data-title="AWS Cloud Practitioner Essentials" data-img="images/aws Cloud practitioner Essentials.jpeg">
+                    <img src="images/aws Cloud practitioner Essentials.jpeg" alt="AWS Cloud Practitioner Essentials">
+                    <span>AWS Cloud Practitioner Essentials</span>
+                </div>
+                <div class="cert-badge" data-title="AWS Solutions Architect" data-img="images/Aws Solution architect.jpg">
+                    <img src="images/Aws Solution architect.jpg" alt="AWS Solutions Architect">
+                    <span>AWS Solutions Architect</span>
+                </div>
+                <div class="cert-badge" data-title="AWS DevOps Navigate" data-img="images/AWS Devops Naviagte.jpg">
+                    <img src="images/AWS Devops Naviagte.jpg" alt="AWS DevOps Navigate">
+                    <span>AWS DevOps Navigate</span>
+                </div>
+            </div>
+            <!-- Lightbox Popup -->
+            <div class="cert-lightbox" id="certLightbox">
+                <img src="" alt="Certification">
+            </div>
+
+            <!-- Zoom Overlay -->
+            <div id="cert-overlay">
+                <div class="cert-popup">
+                    <img id="cert-popup-img" src="" alt="">
+                    <h3 id="cert-popup-title"></h3>
+                    <span id="cert-popup-close">✖</span>
+                </div>
+            </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="// GET IN TOUCH">// GET IN TOUCH</h2>
+            <div class="contact-content">
+                <div class="contact-terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="terminal-title">contact@terminal ~ </div>
+                    </div>
+                    <div class="terminal-body">
+                        <pre class="contact-info">{
+  "email": "likeshbarve08@gmail.com",
+  "phone": "9763879173",
+  "linkedin": "https://www.linkedin.com/in/likesh-barve-8b8723269/",
+  "github": "https://github.com/danielikesh",
+  "location": "Pune, India",
+  "status": "Available for opportunities"
+}</pre>
+                        <p><span class="prompt">$</span> <span class="blink">_</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">Built with <span class="heart">❤</span> using HTML, CSS & JavaScript</p>
+            <p class="footer-year">© 2024 | Deployed on AWS ☁️</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
