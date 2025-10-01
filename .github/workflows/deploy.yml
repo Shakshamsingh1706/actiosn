@@ -8,7 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -21,4 +20,12 @@ jobs:
           aws-region: ap-south-1
 
       - name: Sync files to S3
-        run: aws s3 sync ./ s3://devops-portfolio-likeshbarve --acl public-read --delete
+        run: |
+          echo "Syncing website files to S3..."
+          aws s3 sync ./ s3://devops-portfolio-likeshbarve --acl public-read --delete
+          
+      - name: Invalidate CloudFront
+        run: |
+          DISTRIBUTION_ID=E1AENBSNPXIBXG
+          echo "Creating CloudFront invalidation..."
+          aws cloudfront create-invalidation --distribution-id E1AENBSNPXIBXG --paths "/*"
