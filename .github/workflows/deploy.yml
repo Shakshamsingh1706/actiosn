@@ -28,4 +28,4 @@ jobs:
         run: |
           DISTRIBUTION_ID=E1AENBSNPXIBXG
           echo "Creating CloudFront invalidation..."
-          aws cloudfront create-invalidation --distribution-id E1AENBSNPXIBXG --paths "/*"
+          aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
