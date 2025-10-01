@@ -19,8 +19,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-      - name: Sync files to S3
-        run: aws s3 sync ./ s3://devops-portfolio-likeshbarve --acl public-read --delete
+      - name: Sync portfolio folder to S3
+        run: aws s3 sync ./portfolio/ s3://devops-portfolio-likeshbarve --acl public-read --delete
 
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation --distribution-id E1AENBSNPXIBXG --paths "/*"
