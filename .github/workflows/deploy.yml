@@ -1,4 +1,4 @@
-name: Deploy to S3 & CloudFront
+name: Deploy to S3
 
 on:
   push:
@@ -8,7 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -20,10 +19,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-      - name: Sync files to S3
-        run: aws s3 sync ./ s3://devops-portfolio-likeshbarve --acl public-read --delete
+      - name: Sync portfolio files to S3
+        run: aws s3 sync ./ s3://devops-portfolio-likeshbarve --acl public-read --delete --exclude ".git/*" --exclude ".github/*"
 
-      - name: Invalidate CloudFront Cache
-        run: |
-          DISTRIBUTION_ID=E1AENBSNPXIBXG
-          aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id E1AENBSNPXIBXG --paths "/*"
