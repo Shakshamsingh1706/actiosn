@@ -8,29 +8,100 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/loaders/GLTFLoader.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
-    <div class="stat-card">
-        <div class="stat-number" data-count="6">0</div>
-        <p>Certifications</p>
+    <!-- EPIC Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-terminal">
+            <pre class="loading-ascii">
+ █████╗ ██╗    ██╗███████╗    ██████╗ ███████╗██╗   ██╗ ██████╗ ██████╗ ███████╗
+██╔══██╗██║    ██║██╔════╝    ██╔══██╗██╔════╝██║   ██║██╔═══██╗██╔══██╗██╔════╝
+███████║██║ █╗ ██║███████╗    ██║  ██║█████╗  ██║   ██║██║   ██║██████╔╝███████╗
+██╔══██║██║███╗██║╚════██║    ██║  ██║██╔══╝  ╚██╗ ██╔╝██║   ██║██╔═══╝ ╚════██║
+██║  ██║╚███╔███╔╝███████║    ██████╔╝███████╗ ╚████╔╝ ╚██████╔╝██║     ███████║
+╚═╝  ╚═╝ ╚══╝╚══╝ ╚══════╝    ╚═════╝ ╚══════╝  ╚═══╝   ╚═════╝ ╚═╝     ╚══════╝
+            </pre>
+            <div class="loading-progress">
+                <div class="loading-bar"></div>
+                <span class="loading-text">INITIALIZING...</span>
+            </div>
+            <div class="loading-logs">
+                <p class="log-line">[<span class="timestamp"></span>] Loading AWS modules... <span class="success">✓</span></p>
+                <p class="log-line">[<span class="timestamp"></span>] Establishing SSH connection... <span class="success">✓</span></p>
+                <p class="log-line">[<span class="timestamp"></span>] Deploying containers... <span class="success">✓</span></p>
+                <p class="log-line">[<span class="timestamp"></span>] Configuring CI/CD pipelines... <span class="success">✓</span></p>
+                <p class="log-line">[<span class="timestamp"></span>] Starting DevOps engine... <span class="success">✓</span></p>
+            </div>
+        </div>
     </div>
+
+
+    <!-- Command Palette (Ctrl+K) -->
+    <div id="command-palette" class="command-palette">
+        <div class="command-palette-content">
+            <input type="text" id="command-input" placeholder="Type a command or search..." />
+            <div class="command-suggestions">
+                <div class="command-item" data-action="navigate-home"><i class="fas fa-home"></i> Go to Home</div>
+                <div class="command-item" data-action="navigate-projects"><i class="fas fa-folder"></i> View Projects</div>
+                <div class="command-item" data-action="download-resume"><i class="fas fa-download"></i> Download Resume</div>
+                <div class="command-item" data-action="theme-dark"><i class="fas fa-moon"></i> Dark Theme</div>
+                <div class="command-item" data-action="theme-synthwave"><i class="fas fa-palette"></i> Synthwave Theme</div>
+                <div class="command-item" data-action="theme-matrix"><i class="fas fa-code"></i> Matrix Theme</div>
+                <div class="command-item" data-action="contact-email"><i class="fas fa-envelope"></i> Send Email</div>
+                <div class="command-item" data-action="github-stats"><i class="fab fa-github"></i> View GitHub Stats</div>
+                <div class="command-item" data-action="play-sound"><i class="fas fa-volume-up"></i> Toggle Sounds</div>
+                <div class="command-item" data-action="show-achievements"><i class="fas fa-trophy"></i> Show Achievements</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button class="theme-btn" data-theme="dark" title="Dark Mode"><i class="fas fa-moon"></i></button>
+        <button class="theme-btn" data-theme="synthwave" title="Synthwave"><i class="fas fa-sunset"></i></button>
+        <button class="theme-btn" data-theme="matrix" title="Matrix"><i class="fas fa-code"></i></button>
+        <button class="theme-btn" data-theme="cyberpunk" title="Cyberpunk"><i class="fas fa-robot"></i></button>
+    </div>
+
+    <!-- Weather Status Widget -->
+    <div class="server-status-widget">
+        <div class="status-icon">
+            <i class="fas fa-sun" id="status-weather"></i>
+        </div>
+        <div class="status-info">
+            <span class="status-label">Server Status</span>
+            <span class="status-text">All Systems Operational</span>
+        </div>
+    </div>
+
+    <!-- 3D Background Canvas -->
+    <canvas id="three-canvas"></canvas>
+
     <!-- Particle Background -->
-    <div id="particles"></div>
+    <div id="particles-js"></div>
 
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">
+            <div class="logo" id="logo-easter-egg">
                 <span class="logo-text">Likesh Barve<span class="accent">_</span></span>
+                <span class="logo-subtitle">AWS & DevOps Engineer</span>
             </div>
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link glitch" data-text="HOME">HOME</a></li>
                 <li><a href="#about" class="nav-link glitch" data-text="ABOUT">ABOUT</a></li>
                 <li><a href="#skills" class="nav-link glitch" data-text="SKILLS">SKILLS</a></li>
                 <li><a href="#projects" class="nav-link glitch" data-text="PROJECTS">PROJECTS</a></li>
+                <li><a href="#achievements" class="nav-link glitch" data-text="ACHIEVEMENTS">ACHIEVEMENTS</a></li>
+                <!-- NEW -->
+                <li><a href="#availability" class="nav-link glitch" data-text="AVAILABILITY">AVAILABILITY</a></li>
+                <!-- /NEW -->
                 <li><a href="#contact" class="nav-link glitch" data-text="CONTACT">CONTACT</a></li>
+                <li><a href="assets/Likesh_Barve_Resume.pdf" class="nav-link" download>RESUME</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -42,24 +113,32 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-
         <div class="matrix-bg"></div>
+        <div class="hero-3d-object"></div>
+
         <div class="hero-content">
-            <div class="terminal-window">
+            <!-- Interactive Terminal -->
+            <div class="terminal-window" id="interactive-terminal">
                 <div class="terminal-header">
                     <div class="terminal-buttons">
                         <span class="dot red"></span>
                         <span class="dot yellow"></span>
                         <span class="dot green"></span>
                     </div>
-                    <div class="terminal-title">aws-devops@terminal ~ </div>
+                    <div class="terminal-title">likesh@aws-devops ~ </div>
                 </div>
                 <div class="terminal-body">
-                    <div class="typed-text">
-                        <span class="prompt">$</span> <span id="typed"></span><span class="cursor">_</span>
+                    <div class="terminal-output" id="terminal-output">
+                        <div class="typed-text">
+                            <span class="prompt">$</span> <span id="typed"></span><span class="cursor">_</span>
+                        </div>
+                    </div>
+                    <div class="terminal-input-line">
+                        <span class="prompt">$</span>
+                        <input type="text" id="terminal-input" placeholder="Try: help, skills, whoami, sudo hire me" />
                     </div>
                     <div class="ascii-art">
-                        <pre>
+                        <pre id="dynamic-ascii">
     ___        ______    ____             ___           
    / \ \      / / ___|  |  _ \  _____   __/ _ \ _ __  ___ 
   / _ \ \ /\ / /\___ \  | | | |/ _ \ \ / / | | | '_ \/ __|
@@ -70,15 +149,47 @@
                     </div>
                 </div>
             </div>
-            <h1 class="glitch hero-title" data-text="AWS & DEVOPS ENTHUSIAST">AWS & DEVOPS ENTHUSIAST</h1>
+
+            <h1 class="glitch hero-title" data-text="AWS & DEVOPS ENTHUSIAST">
+                AWS & DEVOPS ENTHUSIAST
+                <span class="hero-badge">🚀 Available for Hire</span>
+            </h1>
+
+
+
+            <!-- Live GitHub Stats -->
+            <div class="github-stats-mini">
+                <span class="stat-item"><i class="fab fa-github"></i> <span id="github-repos">--</span> Repos</span>
+                <span class="stat-item"><i class="fas fa-star"></i> <span id="github-stars">--</span> Stars</span>
+                <span class="stat-item"><i class="fas fa-code-branch"></i> <span id="github-commits">--</span> Commits</span>
+            </div>
 
             <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">View Projects</a>
-                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                <a href="#projects" class="btn btn-primary">
+                    <span class="btn-text">View Projects</span>
+                    <span class="btn-hover-text">Let's Go! 🚀</span>
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <span class="btn-text">Get In Touch</span>
+                    <span class="btn-hover-text">Say Hi! 👋</span>
+                </a>
+                <button class="btn btn-special" id="surprise-btn">
+                    <span class="btn-text">🎮 Surprise</span>
+                </button>
             </div>
         </div>
+
         <div class="scroll-indicator">
             <span></span>
+        </div>
+
+        <!-- Floating Tech Icons -->
+        <div class="floating-icons">
+            <div class="float-icon" style="--delay: 0s;"><i class="fab fa-aws"></i></div>
+            <div class="float-icon" style="--delay: 1s;"><i class="fab fa-docker"></i></div>
+            <div class="float-icon" style="--delay: 2s;"><i class="fab fa-linux"></i></div>
+            <div class="float-icon" style="--delay: 3s;"><i class="fab fa-python"></i></div>
+            <div class="float-icon" style="--delay: 4s;"><i class="fab fa-git"></i></div>
         </div>
     </section>
 
@@ -87,15 +198,177 @@
         <div class="container">
             <h2 class="section-title glitch" data-text="// ABOUT ME">// ABOUT ME</h2>
             <div class="about-content">
-                <h3 class="glitch-name" data-text="Likesh Barve">Likesh Barve</h3>
-                <p class="intro-text">
-                    I’m <span class="glitch-keyword">AWS-certified</span> fresher with a passion for
-                    <span class="glitch-keyword">cloud infrastructure</span> and <span class="glitch-keyword">DevOps automation</span>. I build <span class="glitch-keyword">CI/CD pipelines</span>, deploy scalable applications, and optimize cloud environments
-                    while constantly learning the latest in cloud technologies. Think of me as your future-proof <span class="glitch-keyword">DevOps buddy</span> — ready to solve problems, automate workflows, and make cloud operations seamless.
-                </p>
+                <div class="about-left">
+                    <h3 class="glitch-name" data-text="Likesh Barve">Likesh Barve</h3>
+                    <p class="intro-text">
+                        I'm <span class="glitch-keyword">AWS-certified</span> fresher with a passion for
+                        <span class="glitch-keyword">cloud infrastructure</span> and <span class="glitch-keyword">DevOps automation</span>. I build <span class="glitch-keyword">CI/CD pipelines</span>, deploy scalable applications, and optimize cloud environments
+                        while constantly learning the latest in cloud technologies. Think of me as your future-proof
+                        <span class="glitch-keyword">DevOps buddy</span> — ready to solve problems, automate workflows, and make cloud operations seamless.
+                    </p>
+
+                    <!-- Fun Facts -->
+                    <div class="fun-facts">
+                        <h4>⚡ Quick Facts</h4>
+                        <ul>
+                            <li>🎯 6 AWS Certifications Achieved</li>
+                            <li>☕ Coffee Consumed: <span id="coffee-counter">∞</span></li>
+                            <li>🚀 Deployment Speed: Sub-second</li>
+                            <li>💻 Favorite Command: <code>sudo make me a sandwich</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="about-right">
+                    <!-- Live Stats Card -->
+                    <div class="live-stats-card">
+                        <h4>📊 Live Stats</h4>
+                        <div class="stat-item">
+                            <span class="stat-label">Lines of Code</span>
+                            <span class="stat-value" id="lines-counter">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Problems Solved</span>
+                            <span class="stat-value" id="problems-counter">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Uptime</span>
+                            <span class="stat-value">99.99%</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Achievements Section (NEW) -->
+    <!-- Achievements Section (Certifications only) -->
+    <section id="achievements" class="achievements">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="// CERTIFICATIONS">// CERTIFICATIONS</h2>
+
+            <div class="achievements-grid">
+                <!-- AWS Cloud Practitioner Essentials -->
+                <div class="achievement-card unlocked">
+                    <div class="achievement-icon"><i class="fab fa-aws"></i></div>
+                    <h3>AWS Cloud Practitioner Essentials</h3>
+                    <p>Issued: 2024</p>
+                    <div class="achievement-badge">🏆 VERIFIED</div>
+                    <p style="margin-top:0.6rem;">
+                        <a href="https://www.linkedin.com/in/likesh-barve-8b8723269/" target="_blank" rel="noopener" class="project-link">View on LinkedIn →</a>
+                    </p>
+                </div>
+
+                <!-- AWS Solutions Architect -->
+                <div class="achievement-card unlocked">
+                    <div class="achievement-icon"><i class="fab fa-aws"></i></div>
+                    <h3>AWS Solutions Architect</h3>
+                    <p>Issued: 2024</p>
+                    <div class="achievement-badge">🏆 VERIFIED</div>
+                    <p style="margin-top:0.6rem;">
+                        <a href="https://www.linkedin.com/in/likesh-barve-8b8723269/" target="_blank" rel="noopener" class="project-link">View on LinkedIn →</a>
+                    </p>
+                </div>
+
+                <!-- AWS DevOps Navigate -->
+                <div class="achievement-card unlocked">
+                    <div class="achievement-icon"><i class="fab fa-aws"></i></div>
+                    <h3>AWS DevOps Navigate</h3>
+                    <p>Issued: 2025</p>
+                    <div class="achievement-badge">🏆 VERIFIED</div>
+                    <p style="margin-top:0.6rem;">
+                        <a href="https://www.linkedin.com/in/likesh-barve-8b8723269/" target="_blank" rel="noopener" class="project-link">View on LinkedIn →</a>
+                    </p>
+                </div>
+
+                <!-- See all on LinkedIn -->
+                <div class="achievement-card unlocked">
+                    <div class="achievement-icon"><i class="fab fa-linkedin"></i></div>
+                    <h3>More Certifications</h3>
+                    <p>See all verified credentials</p>
+                    <div class="achievement-badge">🔗 LINKEDIN</div>
+                    <p style="margin-top:0.6rem;">
+                        <a href="https://www.linkedin.com/in/likesh-barve-8b8723269/" target="_blank" rel="noopener" class="project-link">Open LinkedIn Profile →</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Optional: Progress info -->
+            <div class="achievement-progress">
+                <h4>Learning Journey</h4>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%;"></div>
+                </div>
+                <span class="progress-text">Actively upskilling — more coming soon</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Bar -->
+    <div class="achievement-progress">
+        <h4>Overall Progress</h4>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 66%;"></div>
+        </div>
+        <span class="progress-text">4 of 6 Achievements Unlocked</span>
+    </div>
+    </div>
+    </section>
+
+    <!-- Availability / Remote & Timezone -->
+    <section id="availability" class="availability">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="// AVAILABILITY">// AVAILABILITY</h2>
+
+            <div class="about-content">
+                <!-- Left: Info -->
+                <div class="about-left">
+                    <div class="live-stats-card">
+                        <h4>🌍 Work Preferences</h4>
+
+                        <div class="stat-item">
+                            <span class="stat-label">Remote</span>
+                            <span class="stat-value">Available ✅</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Onsite/Hybrid</span>
+                            <span class="stat-value">Pune, India 🇮🇳</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Time Zone</span>
+                            <span class="stat-value"><span id="timezone-value">IST (UTC+5:30)</span></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Local Time</span>
+                            <span class="stat-value" id="local-time-value">--:--</span>
+                        </div>
+
+                        <div class="fun-facts" style="margin-top:1rem;">
+                            <h4>🕒 Overlap & Hours</h4>
+                            <ul>
+                                <li>IST Core: 10:00 — 19:00</li>
+                                <li>EU Overlap: 3–6 hrs possible</li>
+                                <li>US (EST) Overlap: 2–4 hrs (flexible)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Rotating Earth -->
+                <div class="about-right">
+                    <div class="live-stats-card">
+                        <h4>🌐 My Timezone on Earth</h4>
+                        <canvas id="earth-canvas" style="width:100%; max-width:420px; height:420px; display:block; margin:0 auto;"></canvas>
+                        <p style="color: var(--text-secondary); margin-top:0.8rem; font-size:0.9rem;">
+                            Tip: click & drag to spin • double click to reset
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 
     <!-- Experience Section -->
     <section id="experience" class="experience">
@@ -103,16 +376,20 @@
             <h2 class="section-title glitch" data-text="// EXPERIENCE">// EXPERIENCE</h2>
 
             <div class="experience-timeline">
-
                 <!-- Timeline line -->
                 <div class="timeline-line"></div>
 
-                <!-- Experience Item -->
-                <div class="timeline-item">
+                <!-- Experience Items with animations -->
+                <div class="timeline-item" data-aos="fade-right">
                     <div class="timeline-icon">💻</div>
                     <div class="timeline-content">
                         <h3>Associate Systems Engineer | Braves Technologies</h3>
                         <p class="timeline-date"><strong>March 2025 – May 2025</strong></p>
+                        <div class="timeline-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Log Analysis</span>
+                            <span class="tag">Automation</span>
+                        </div>
                         <ul>
                             <li>Analyzed large system & application logs for errors & patterns.</li>
                             <li>Used internal tools for monitoring & data extraction.</li>
@@ -122,11 +399,16 @@
                     </div>
                 </div>
 
-                <div class="timeline-item">
+                <div class="timeline-item" data-aos="fade-left">
                     <div class="timeline-icon">☁️</div>
                     <div class="timeline-content">
                         <h3>AWS Cloud Intern | F13 Technologies</h3>
                         <p class="timeline-date"><strong>Feb 2025 – May 2025</strong></p>
+                        <div class="timeline-tags">
+                            <span class="tag">AWS</span>
+                            <span class="tag">Cloud</span>
+                            <span class="tag">IAM</span>
+                        </div>
                         <ul>
                             <li>Completed 6 AWS certifications & worked on cloud deployments.</li>
                             <li>Handled IAM roles, EC2 provisioning, CloudWatch integration.</li>
@@ -134,92 +416,137 @@
                         </ul>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
+    <!-- Skills Section Enhanced -->
     <section id="skills" class="skills">
         <div class="container">
             <h2 class="section-title glitch" data-text="// TECH STACK">// TECH STACK</h2>
+
+            <!-- Skill Search Bar -->
+            <div class="skill-search">
+                <input type="text" id="skill-filter" placeholder="🔍 Search skills... (try: AWS, Docker, Python)">
+            </div>
+
             <div class="skills-container">
+                <!-- Programming & Tools with Progress Bars -->
                 <div class="skill-category">
                     <h3 class="category-title">[ Programming & Tools ]</h3>
                     <div class="skills-grid">
-                        <div class="skill-card" data-skill="Python">
+                        <div class="skill-card" data-skill="Python" data-level="90">
                             <div class="skill-icon">🐍</div>
                             <span>Python</span>
+                            <div class="skill-progress">
+                                <div class="skill-progress-bar" style="--progress: 90%;"></div>
+                            </div>
+                            <span class="skill-level-text">Expert</span>
                         </div>
-                        <div class="skill-card" data-skill="Git">
+                        <div class="skill-card" data-skill="Git" data-level="85">
                             <div class="skill-icon">📦</div>
                             <span>Git</span>
+                            <div class="skill-progress">
+                                <div class="skill-progress-bar" style="--progress: 85%;"></div>
+                            </div>
+                            <span class="skill-level-text">Advanced</span>
                         </div>
-                        <div class="skill-card" data-skill="GitHub">
+                        <div class="skill-card" data-skill="GitHub" data-level="85">
                             <div class="skill-icon">💻</div>
                             <span>GitHub</span>
+                            <div class="skill-progress">
+                                <div class="skill-progress-bar" style="--progress: 85%;"></div>
+                            </div>
+                            <span class="skill-level-text">Advanced</span>
                         </div>
-                        <div class="skill-card" data-skill="CI/CD">
+                        <div class="skill-card" data-skill="CI/CD" data-level="80">
                             <div class="skill-icon">⚙️</div>
                             <span>CI/CD</span>
+                            <div class="skill-progress">
+                                <div class="skill-progress-bar" style="--progress: 80%;"></div>
+                            </div>
+                            <span class="skill-level-text">Advanced</span>
                         </div>
-                        <div class="skill-card" data-skill="Linux">
+                        <div class="skill-card" data-skill="Linux" data-level="88">
                             <div class="skill-icon">🐧</div>
                             <span>Linux</span>
+                            <div class="skill-progress">
+                                <div class="skill-progress-bar" style="--progress: 88%;"></div>
+                            </div>
+                            <span class="skill-level-text">Expert</span>
                         </div>
-                        <div class="skill-card" data-skill="Shell Scripting">
+                        <div class="skill-card" data-skill="Shell Scripting" data-level="75">
                             <div class="skill-icon">💾</div>
                             <span>Shell Scripting</span>
+                            <div class="skill-progress">
+                                <div class="skill-progress-bar" style="--progress: 75%;"></div>
+                            </div>
+                            <span class="skill-level-text">Intermediate</span>
                         </div>
-                        <div class="skill-card" data-skill="Docker">
+                        <div class="skill-card" data-skill="Docker" data-level="82">
                             <div class="skill-icon">🐳</div>
                             <span>Docker</span>
+                            <div class="skill-progress">
+                                <div class="skill-progress-bar" style="--progress: 82%;"></div>
+                            </div>
+                            <span class="skill-level-text">Advanced</span>
                         </div>
                     </div>
                 </div>
 
+                <!-- AWS Services with Hover Effects -->
                 <div class="skill-category">
                     <h3 class="category-title">[ AWS Services ]</h3>
                     <div class="skills-grid">
-                        <div class="skill-card" data-skill="EC2">
+                        <div class="skill-card aws-skill" data-skill="EC2" data-level="90">
                             <div class="skill-icon">⚡</div>
                             <span>EC2</span>
+                            <div class="skill-tooltip">Elastic Compute Cloud - Virtual Servers</div>
                         </div>
-                        <div class="skill-card" data-skill="S3">
+                        <div class="skill-card aws-skill" data-skill="S3" data-level="95">
                             <div class="skill-icon">🪣</div>
                             <span>S3</span>
+                            <div class="skill-tooltip">Simple Storage Service</div>
                         </div>
-                        <div class="skill-card" data-skill="IAM">
+                        <div class="skill-card aws-skill" data-skill="IAM" data-level="88">
                             <div class="skill-icon">🔑</div>
                             <span>IAM</span>
+                            <div class="skill-tooltip">Identity & Access Management</div>
                         </div>
-                        <div class="skill-card" data-skill="VPC">
+                        <div class="skill-card aws-skill" data-skill="VPC" data-level="82">
                             <div class="skill-icon">🌐</div>
                             <span>VPC</span>
+                            <div class="skill-tooltip">Virtual Private Cloud</div>
                         </div>
-                        <div class="skill-card" data-skill="RDS">
+                        <div class="skill-card aws-skill" data-skill="RDS" data-level="78">
                             <div class="skill-icon">🗄️</div>
                             <span>RDS</span>
+                            <div class="skill-tooltip">Relational Database Service</div>
                         </div>
-                        <div class="skill-card" data-skill="Lambda">
+                        <div class="skill-card aws-skill" data-skill="Lambda" data-level="85">
                             <div class="skill-icon">λ</div>
                             <span>Lambda</span>
+                            <div class="skill-tooltip">Serverless Computing</div>
                         </div>
-                        <div class="skill-card" data-skill="Route 53">
+                        <div class="skill-card aws-skill" data-skill="Route 53" data-level="80">
                             <div class="skill-icon">📍</div>
                             <span>Route 53</span>
+                            <div class="skill-tooltip">DNS & Domain Management</div>
                         </div>
-                        <div class="skill-card" data-skill="Auto Scaling">
+                        <div class="skill-card aws-skill" data-skill="Auto Scaling" data-level="83">
                             <div class="skill-icon">📈</div>
                             <span>Auto Scaling</span>
+                            <div class="skill-tooltip">Automatic Resource Scaling</div>
                         </div>
-                        <div class="skill-card" data-skill="Load Balancer">
+                        <div class="skill-card aws-skill" data-skill="Load Balancer" data-level="81">
                             <div class="skill-icon">🔄</div>
                             <span>Load Balancer</span>
+                            <div class="skill-tooltip">Traffic Distribution</div>
                         </div>
-                        <div class="skill-card" data-skill="CloudWatch">
+                        <div class="skill-card aws-skill" data-skill="CloudWatch" data-level="87">
                             <div class="skill-icon">👁️</div>
                             <span>CloudWatch</span>
+                            <div class="skill-tooltip">Monitoring & Observability</div>
                         </div>
                     </div>
                 </div>
@@ -227,145 +554,165 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Enhanced Projects Section -->
     <section id="projects" class="projects futuristic-projects">
         <div class="container">
             <h2 class="section-title glitch" data-text="// PROJECTS">// PROJECTS</h2>
+
+            <!-- Project Filter Tabs -->
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="python">Python</button>
+                <button class="filter-btn" data-filter="devops">DevOps</button>
+                <button class="filter-btn" data-filter="aws">AWS</button>
+            </div>
+
             <div class="projects-grid">
-                <!-- Project Card Template -->
-                <div class="project-card">
+                <!-- Enhanced Project Cards -->
+                <div class="project-card" data-category="python">
+                    <div class="project-status live">● LIVE</div>
                     <div class="project-content">
                         <h3>DevTest</h3>
                         <p>A Python-based project to test various algorithms and Python skills.</p>
-                        <a href="https://github.com/danielikesh/DevTest" target="_blank" class="btn btn-secondary">View on GitHub</a>
+                        <div class="project-tech-stack">
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">Algorithms</span>
+                        </div>
+                        <div class="project-stats">
+                            <span><i class="fas fa-star"></i> 12</span>
+                            <span><i class="fas fa-code-branch"></i> 5</span>
+                            <span><i class="fas fa-eye"></i> 234</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/danielikesh/DevTest" target="_blank" class="btn btn-secondary">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                            <button class="btn btn-demo" onclick="showProjectDemo('devtest')">
+                                <i class="fas fa-play"></i> Demo
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card">
+
+                <div class="project-card" data-category="python">
+                    <div class="project-status live">● LIVE</div>
                     <div class="project-content">
                         <h3>Face Recognition Attendance System</h3>
                         <p>Python project using facial recognition to automate attendance tracking.</p>
-                        <a href="https://github.com/danielikesh/Face-Recognition-Attendance-System" target="_blank" class="btn btn-secondary">View on GitHub</a>
+                        <div class="project-tech-stack">
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">OpenCV</span>
+                            <span class="tech-badge">ML</span>
+                        </div>
+                        <div class="project-stats">
+                            <span><i class="fas fa-star"></i> 28</span>
+                            <span><i class="fas fa-code-branch"></i> 8</span>
+                            <span><i class="fas fa-eye"></i> 512</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/danielikesh/Face-Recognition-Attendance-System" target="_blank" class="btn btn-secondary">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                            <button class="btn btn-demo" onclick="showProjectDemo('face-recognition')">
+                                <i class="fas fa-play"></i> Demo
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card">
+
+                <div class="project-card" data-category="python">
+                    <div class="project-status">● DEPLOYED</div>
                     <div class="project-content">
                         <h3>Personal Expense Tracker</h3>
                         <p>Python app to manage and visualize personal expenses efficiently.</p>
-                        <a href="https://github.com/danielikesh/Personal-expense-Tracker" target="_blank" class="btn btn-secondary">View on GitHub</a>
+                        <div class="project-tech-stack">
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">Data Viz</span>
+                            <span class="tech-badge">SQLite</span>
+                        </div>
+                        <div class="project-stats">
+                            <span><i class="fas fa-star"></i> 15</span>
+                            <span><i class="fas fa-code-branch"></i> 3</span>
+                            <span><i class="fas fa-eye"></i> 189</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/danielikesh/Personal-expense-Tracker" target="_blank" class="btn btn-secondary">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                            <button class="btn btn-demo" onclick="showProjectDemo('expense-tracker')">
+                                <i class="fas fa-play"></i> Demo
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card">
+
+                <div class="project-card" data-category="devops aws">
+                    <div class="project-status live">● LIVE</div>
                     <div class="project-content">
                         <h3>DevOps Web Hosting</h3>
                         <p>HTML/DevOps project to host web applications with CI/CD pipelines.</p>
-                        <a href="https://github.com/danielikesh/danielikesh-My_first_devops_Web_hosting" target="_blank" class="btn btn-secondary">View on GitHub</a>
+                        <div class="project-tech-stack">
+                            <span class="tech-badge">AWS</span>
+                            <span class="tech-badge">CI/CD</span>
+                            <span class="tech-badge">Docker</span>
+                        </div>
+                        <div class="project-stats">
+                            <span><i class="fas fa-star"></i> 22</span>
+                            <span><i class="fas fa-code-branch"></i> 10</span>
+                            <span><i class="fas fa-eye"></i> 445</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/danielikesh/danielikesh-My_first_devops_Web_hosting" target="_blank" class="btn btn-secondary">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                            <button class="btn btn-demo" onclick="showProjectDemo('devops-hosting')">
+                                <i class="fas fa-play"></i> Demo
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <style>
-        /* Futuristic Project Cards */
-        
-        .futuristic-projects .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .futuristic-projects .project-card {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid #00ffff;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .futuristic-projects .project-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00, #ffcc00);
-            background-size: 400% 400%;
-            opacity: 0.2;
-            transform: rotate(25deg);
-            animation: gradientMove 6s linear infinite;
-        }
-        
-        @keyframes gradientMove {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-        
-        .futuristic-projects .project-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 0 30px #00ffff, 0 0 60px #ff00ff;
-        }
-        
-        .futuristic-projects .project-content {
-            position: relative;
-            z-index: 2;
-            color: #fff;
-        }
-        
-        .futuristic-projects .project-content h3 {
-            margin-bottom: 0.5rem;
-        }
-        
-        .futuristic-projects .project-content p {
-            margin-bottom: 1rem;
-        }
-        
-        .futuristic-projects .project-content .btn-secondary {
-            color: #00ffff;
-            border: 1px solid #00ffff;
-            transition: all 0.3s ease;
-        }
-        
-        .futuristic-projects .project-content .btn-secondary:hover {
-            background: #00ffff;
-            color: #000;
-        }
-    </style>
-
-    <!-- certs -->
-
+    <!-- Enhanced Certifications Section -->
     <section id="certifications" class="certifications">
         <div class="container">
             <h2 class="section-title glitch" data-text="// CERTIFICATIONS">// CERTIFICATIONS</h2>
 
             <div class="cert-badges-grid">
                 <div class="cert-badge" data-title="AWS Cloud Practitioner Essentials" data-img="images/aws Cloud practitioner Essentials.jpeg">
+                    <div class="cert-glow"></div>
                     <img src="images/aws Cloud practitioner Essentials.jpeg" alt="AWS Cloud Practitioner Essentials">
                     <span>AWS Cloud Practitioner Essentials</span>
+                    <div class="cert-date">Issued: 2024</div>
+                    <button class="verify-btn" onclick="verifyCert('aws-cp')">
+                        <i class="fas fa-check-circle"></i> Verify
+                    </button>
                 </div>
                 <div class="cert-badge" data-title="AWS Solutions Architect" data-img="images/Aws Solution architect.jpg">
+                    <div class="cert-glow"></div>
                     <img src="images/Aws Solution architect.jpg" alt="AWS Solutions Architect">
                     <span>AWS Solutions Architect</span>
+                    <div class="cert-date">Issued: 2024</div>
+                    <button class="verify-btn" onclick="verifyCert('aws-sa')">
+                        <i class="fas fa-check-circle"></i> Verify
+                    </button>
                 </div>
                 <div class="cert-badge" data-title="AWS DevOps Navigate" data-img="images/AWS Devops Naviagte.jpg">
+                    <div class="cert-glow"></div>
                     <img src="images/AWS Devops Naviagte.jpg" alt="AWS DevOps Navigate">
                     <span>AWS DevOps Navigate</span>
+                    <div class="cert-date">Issued: 2024</div>
+                    <button class="verify-btn" onclick="verifyCert('aws-devops')">
+                        <i class="fas fa-check-circle"></i> Verify
+                    </button>
                 </div>
             </div>
-            <!-- Lightbox Popup -->
-            <div class="cert-lightbox" id="certLightbox">
-                <img src="" alt="Certification">
-            </div>
+
+
+
+
 
             <!-- Zoom Overlay -->
             <div id="cert-overlay">
@@ -375,45 +722,311 @@
                     <span id="cert-popup-close">✖</span>
                 </div>
             </div>
+        </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <!-- GitHub Stats Section (NEW) -->
+    <section id="github-stats" class="github-stats-section">
         <div class="container">
-            <h2 class="section-title glitch" data-text="// GET IN TOUCH">// GET IN TOUCH</h2>
-            <div class="contact-content">
-                <div class="contact-terminal">
-                    <div class="terminal-header">
-                        <div class="terminal-buttons">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                        </div>
-                        <div class="terminal-title">contact@terminal ~ </div>
+            <h2 class="section-title glitch" data-text="// GITHUB STATS">// GITHUB STATS</h2>
+
+            <div class="github-profile-card">
+                <img src="https://github.com/danielikesh.png" alt="GitHub Profile" class="github-avatar">
+                <h3>@danielikesh</h3>
+                <p class="github-bio">Building awesome things with code</p>
+            </div>
+
+            <div class="github-stats-grid">
+                <div class="github-stat-card">
+                    <i class="fab fa-github"></i>
+                    <h3 id="total-repos">Loading...</h3>
+                    <p>Total Repositories</p>
+                </div>
+                <div class="github-stat-card">
+                    <i class="fas fa-star"></i>
+                    <h3 id="total-stars">Loading...</h3>
+                    <p>Total Stars</p>
+                </div>
+                <div class="github-stat-card">
+                    <i class="fas fa-code-branch"></i>
+                    <h3 id="total-forks">Loading...</h3>
+                    <p>Total Forks</p>
+                </div>
+                <div class="github-stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3 id="total-followers">Loading...</h3>
+                    <p>Followers</p>
+                </div>
+            </div>
+
+            <!-- GitHub Contribution Graph -->
+            <img alt="GitHub Contribution Graph" style="width:100%;height:auto;display:block" src="https://github-readme-activity-graph.vercel.app/graph?username=danielikesh&bg_color=0a0a0a&color=00ffff&line=ff00ff&point=00ff00&area=true&hide_border=true" />
+
+            <!-- Language Stats -->
+            <div class="language-stats">
+                <h3>Most Used Languages</h3>
+                <div class="language-chart">
+                    <div class="language-bar" style="--percentage: 40%; --color: #f1e05a;">
+                        <span>Python</span>
+                        <span>40%</span>
                     </div>
-                    <div class="terminal-body">
-                        <pre class="contact-info">{
-  "email": "likeshbarve08@gmail.com",
-  "phone": "9763879173",
-  "linkedin": "https://www.linkedin.com/in/likesh-barve-8b8723269/",
-  "github": "https://github.com/danielikesh",
-  "location": "Pune, India",
-  "status": "Available for opportunities"
-}</pre>
-                        <p><span class="prompt">$</span> <span class="blink">_</span></p>
+                    <div class="language-bar" style="--percentage: 25%; --color: #e34c26;">
+                        <span>HTML</span>
+                        <span>25%</span>
+                    </div>
+                    <div class="language-bar" style="--percentage: 20%; --color: #563d7c;">
+                        <span>CSS</span>
+                        <span>20%</span>
+                    </div>
+                    <div class="language-bar" style="--percentage: 15%; --color: #f7df1e;">
+                        <span>JavaScript</span>
+                        <span>15%</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Enhanced Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="// GET IN TOUCH">// GET IN TOUCH</h2>
+            <div class="contact-content">
+                <div class="contact-left">
+                    <div class="contact-terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-buttons">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <div class="terminal-title">contact@terminal ~ </div>
+                        </div>
+                        <div class="terminal-body">
+                            <pre class="contact-info">{
+  "<span class="json-key">email</span>": "<a href="mailto:likeshbarve08@gmail.com">likeshbarve08@gmail.com</a>",
+  "<span class="json-key">phone</span>": "<a href="tel:9763879173">9763879173</a>",
+  "<span class="json-key">linkedin</span>": "<a href="https://www.linkedin.com/in/likesh-barve-8b8723269/" target="_blank">linkedin.com/in/likesh-barve</a>",
+  "<span class="json-key">github</span>": "<a href="https://github.com/danielikesh" target="_blank">github.com/danielikesh</a>",
+  "<span class="json-key">location</span>": "Pune, India 📍",
+  "<span class="json-key">status</span>": "<span class="status-available">Available for opportunities</span>",
+  "<span class="json-key">response_time</span>": "< 24 hours"
+}</pre>
+                            <p><span class="prompt">$</span> <span class="blink">_</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-right">
+                    <!-- Quick Contact Form -->
+                    <div class="contact-form">
+                        <h3>Quick Message</h3>
+                        <form id="contact-form">
+                            <input type="text" placeholder="Your Name" required>
+                            <input type="email" placeholder="Your Email" required>
+                            <textarea placeholder="Your Message" rows="4" required></textarea>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Send Message
+                            </button>
+                        </form>
+                    </div>
+
+
+
+                    <!-- Social Links -->
+                    <div class="social-links">
+                        <a href="https://github.com/danielikesh" target="_blank" class="social-link github">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/likesh-barve-8b8723269/" target="_blank" class="social-link linkedin">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:likeshbarve08@gmail.com" class="social-link email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="tel:9763879173" class="social-link phone">
+                            <i class="fas fa-phone"></i>
+                        </a>
+
+                        <a href="assets/Likesh_Barve_Resume.pdf" class="btn btn-special" download>
+                            <i class="fas fa-download" style="margin-left:2px;"></i> Download Resume
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Enhanced -->
     <footer class="footer">
         <div class="container">
-            <p class="footer-text">Built with <span class="heart">❤</span> using HTML, CSS & JavaScript</p>
-            <p class="footer-year">© 2025 | Deployed on AWS ☁️</p>
+            <div class="footer-content">
+                <p class="footer-text">
+                    Built with <span class="heart">❤</span> using HTML, CSS & JavaScript
+                </p>
+                <p class="footer-stats">
+                    <span id="visitor-count">0</span> Visitors |
+                    <span id="page-views">0</span> Page Views | Last Updated: <span id="last-updated">2025</span>
+                </p>
+                <p class="footer-year">© 2025 Likesh Barve | Deployed on AWS ☁️</p>
+            </div>
+
+            <!-- Easter Egg Hint -->
+            <div class="easter-egg-hint">
+                <span>Psst... Try the Konami Code 👾</span>
+            </div>
         </div>
     </footer>
+
+    <!-- Game Modal (Easter Egg) -->
+    <div id="game-modal" class="game-modal">
+        <div class="game-container">
+            <h2>🎮 DevOps Defender</h2>
+            <canvas id="game-canvas"></canvas>
+            <div class="game-controls">
+                <button onclick="startGame()">Start Game</button>
+                <button onclick="closeGame()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sound Control -->
+    <div class="sound-control">
+        <button id="sound-toggle" class="sound-btn">
+            <i class="fas fa-volume-up"></i>
+        </button>
+    </div>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" class="back-to-top">
+        <i class="fas fa-rocket"></i>
+    </button>
+
+    <!-- Audio Elements -->
+    <audio id="typing-sound" src="sounds/typing.mp3" preload="auto"></audio>
+    <audio id="click-sound" src="sounds/click.mp3" preload="auto"></audio>
+    <audio id="success-sound" src="sounds/success.mp3" preload="auto"></audio>
+    <audio id="hover-sound" src="sounds/hover.mp3" preload="auto"></audio>
+
+    <script>
+        // Live local time (IST)
+        (function initLocalTime() {
+            const el = document.getElementById('local-time-value');
+            const tzEl = document.getElementById('timezone-value');
+            if (tzEl) tzEl.textContent = 'IST (UTC+5:30)';
+
+            function tick() {
+                if (!el) return;
+                const now = new Date();
+                const fmt = new Intl.DateTimeFormat('en-IN', {
+                    timeZone: 'Asia/Kolkata',
+                    hour12: true,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                });
+                el.textContent = fmt.format(now);
+            }
+            tick();
+            setInterval(tick, 1000);
+        })();
+
+        // Rotating Earth (Three.js)
+        (function initEarth() {
+            const canvas = document.getElementById('earth-canvas');
+            if (!canvas || !window.THREE) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+            camera.position.set(0, 0, 2.3);
+
+            const renderer = new THREE.WebGLRenderer({
+                canvas,
+                antialias: true,
+                alpha: true
+            });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+            const ambient = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambient);
+            const dir = new THREE.DirectionalLight(0xffffff, 1);
+            dir.position.set(3, 2, 4);
+            scene.add(dir);
+
+            const group = new THREE.Group();
+            scene.add(group);
+
+            const geo = new THREE.SphereGeometry(0.8, 64, 64);
+            const loader = new THREE.TextureLoader();
+            const texURL = 'https://threejs.org/examples/textures/land_ocean_ice_cloud_2048.jpg';
+            loader.crossOrigin = 'anonymous';
+
+            const material = new THREE.MeshPhongMaterial({
+                color: 0x2266ff
+            });
+            const earth = new THREE.Mesh(geo, material);
+            group.add(earth);
+
+            loader.load(texURL, (tex) => {
+                tex.anisotropy = 8;
+                material.map = tex;
+                material.needsUpdate = true;
+            });
+
+            // Resize
+            function resize() {
+                const w = canvas.clientWidth;
+                const h = canvas.clientHeight;
+                renderer.setSize(w, h, false);
+                camera.aspect = w / h;
+                camera.updateProjectionMatrix();
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            // Drag to rotate
+            let dragging = false,
+                lastX = 0,
+                lastY = 0;
+            canvas.addEventListener('pointerdown', (e) => {
+                dragging = true;
+                lastX = e.clientX;
+                lastY = e.clientY;
+                canvas.setPointerCapture(e.pointerId);
+            });
+            canvas.addEventListener('pointerup', (e) => {
+                dragging = false;
+                canvas.releasePointerCapture(e.pointerId);
+            });
+            canvas.addEventListener('pointerleave', () => {
+                dragging = false;
+            });
+            canvas.addEventListener('pointermove', (e) => {
+                if (!dragging) return;
+                const dx = (e.clientX - lastX) / 200;
+                const dy = (e.clientY - lastY) / 200;
+                group.rotation.y += dx;
+                group.rotation.x += dy;
+                group.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, group.rotation.x));
+                lastX = e.clientX;
+                lastY = e.clientY;
+            });
+            canvas.addEventListener('dblclick', () => {
+                group.rotation.set(0, 0, 0);
+            });
+
+            // Animate
+            function animate() {
+                requestAnimationFrame(animate);
+                group.rotation.y += 0.0018;
+                renderer.render(scene, camera);
+            }
+            animate();
+        })();
+    </script>
 
     <script src="script.js"></script>
 </body>
