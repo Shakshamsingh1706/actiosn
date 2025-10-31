@@ -1,7 +1,6 @@
-FROM node:18
-WORKDIR /app
-COPY . .
-COPY package*.json ./
-RUN npm install --production
+FROM nginx:alpine
+
+# Copy all website files to Nginx's default web directory
+COPY . /usr/share/nginx/html
+
 EXPOSE 5500
-CMD ["node", "script.js"]
