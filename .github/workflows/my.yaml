@@ -4,9 +4,18 @@ jobs :
   checkout_code:
     runs-on: ubuntu-latest
     steps:
+<<<<<<< HEAD
       - name : checkout checkout_code
         uses : actions/checkout@v4
       - name: hello world
         run: echo ' hello world'
       - name : docker build 
         run : docker build -t myfirstapp .
+=======
+      - name: checkout checkout_code
+        uses : actions/checkout@v4
+      - name: hello world
+        run: echo '  hello world'
+      - name : docker build 
+        run : docker build -t myfirstapp .
+>>>>>>> 8a73c80 (updated with docker)
